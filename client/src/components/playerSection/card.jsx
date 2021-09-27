@@ -1,16 +1,14 @@
 import React from "react";
 
-const CardList = ({hand}) => {
-    return (
-        <div className="player-cards">
-            {hand.map((card, index) => {
-                <div className="card" key={index}>
-                    <div className="head-num">{card.Value}</div>
-                    <div className="suit"><img src={card.Src} alt={card.Suit}/></div>
-                    <div className="bottom-num">{card.Value}</div>
-                </div>
-            })}
+const Card = ({value,src,suit}) => {
+  return (
+        <div className="card">
+          <div className="head-num"> {value}</div>
+          <div className="suit">
+            <img src={src} alt={suit}/>
+          </div>
+          <div className="bottom-num">{value}</div>
         </div>
-    );
+  );
 }
-export default CardList;
+export default Card;

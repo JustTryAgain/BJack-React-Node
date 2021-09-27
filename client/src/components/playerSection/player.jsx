@@ -1,6 +1,6 @@
 import React from "react";
 import cn from 'classnames';
-import CardList from "./card";
+import CardList from "./cardList.jsx";
 
 const Player = ({player,currentPlayer}) => {
     const className = cn(

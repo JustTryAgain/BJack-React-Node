@@ -13,6 +13,6 @@ export class Player {
     getScore() {
         return this.Hand.reduce((acc, currValue) => {
             return acc + currValue.Weight;
-        }, this.Score);
+        }, 0);
     }
 }

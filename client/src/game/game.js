@@ -7,6 +7,7 @@ export class Game {
         this.currentPlayer = 0;
         this.winners = [];
         this.dealHand();
+
     }
 
     dealHand() {
@@ -17,14 +18,15 @@ export class Game {
         }
     }
 
-    hit() {
+    gHit() {
         const player = this.players[this.currentPlayer];
         if (player.getScore() >= 21) {
             return this.nextPlayer();
         }
         player.takeCard(this.cardFromDeck());
 
-        return true;
+        /*return true;*/ //TODO:SKIP
+        return this.players;
     }
 
     stand() {

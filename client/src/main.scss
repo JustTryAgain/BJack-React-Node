@@ -1,9 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Rouge+Script&family=Rum+Raisin&display=swap');
-$brown: #190A11;
-$dg: #68714A;
-$lg: #B8B965;
-$w: #F2F7E1;
-
 * {
   box-sizing: border-box
 }
@@ -30,6 +25,7 @@ time, mark, audio, video {
 
 body{
   background-color: #C0987B;
+  overflow-x: hidden;
   .black-Jack{
     height: 100vh;
     width: 100vw;
