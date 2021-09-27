@@ -1,0 +1,86 @@
+.info-section {
+  position: relative;
+  display: flex;
+  font-family: Rum Raisin, fantasy;
+  height: 35%;
+  width: 100vw;
+  justify-content: space-between;
+  margin: 10px 0 20px 0;
+
+  .winner {
+    position: absolute;
+    max-width: 150px;
+    text-align: center;
+    padding: 5px 20px 5px 20px;
+    color: #F2F7E1;
+    background-color: #190A11;
+    border-radius: 30%;
+    font-size: 2em;
+    top: 45%;
+    left: 45%;
+    display: none;
+    border: 2px solid #FFFFFF;
+  }
+
+  .deck {
+    display: flex;
+    width: 25%;
+    height: 100%;
+    margin: 10px;
+
+    .card-back {
+      display: flex;
+      flex-direction: column;
+
+      .counter {
+        text-align: center;
+        color: #68714A;
+        font-size: 1.5em;
+      }
+
+      img {
+        width: 100%;
+        height: 80%;
+      }
+    }
+
+    .deck-txt {
+      color: #68714A;
+      font-size: 2em;
+      writing-mode: tb-rl;
+      text-align: center;
+      transform: rotate(180deg);
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10%;
+    text-align: center;
+
+    .hit, .stand {
+      padding: 10px;
+    }
+
+    .btn-hit, .btn-stand {
+      padding: 10px 30px 10px 30px;
+      font-family: Rum Raisin, fantasy;
+      color: #F2F7E1;
+      font-size: 1.5em;
+      background-color: #190A11;
+      border-radius: 15%;
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .btn-hit:hover, .btn-stand:hover {
+      cursor: pointer;
+      border: 2px solid #F2F7E1;
+      background-color: #68714A;
+      color: #000000;
+    }
+  }
+}
