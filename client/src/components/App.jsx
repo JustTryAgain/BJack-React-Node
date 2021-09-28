@@ -9,7 +9,7 @@ import {startGameActionRequest} from "../redux/game/actions.js";
 const App = () => {
   return (
     <>
-      {isGameStart ? <Game/> : <StartGame/>}
+      {isGameStart ?  <StartGame/>: <Game/>}
     </>
   );
 }
@@ -17,6 +17,7 @@ const App = () => {
 const mapStateToProps = createStructuredSelector({
   isGameStart
 });
+
 const mapDispatchToProps = {
   startGameActionRequest
 }
