@@ -1,7 +1,7 @@
-import {createAction} from 'redux-actions';
-import {newGame} from "../../game";
+import {createAction} from "redux-actions";
 
-export const hitAction = createAction('HIT', ()=>{return newGame.gHit()});
+
+export const hitAction = createAction('HIT');
 export const stand = createAction('STAND');
 
 

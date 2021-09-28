@@ -5,9 +5,7 @@ export class Game {
         this.deck = new Deck();
         this.players = players;
         this.currentPlayer = 0;
-        this.winners = [];
         this.dealHand();
-
     }
 
     dealHand() {
@@ -25,8 +23,7 @@ export class Game {
         }
         player.takeCard(this.cardFromDeck());
 
-        /*return true;*/ //TODO:SKIP
-        return this.players;
+        return true; //TODO:SKIP
     }
 
     stand() {
@@ -53,19 +50,19 @@ export class Game {
         const scores = this.players.map(player => player.getScore());
 
         for (let maxScore = 21; maxScore >= 0; maxScore--) {
-             this.winners = [];
+             const winners = [];
             for (let i = 0; i < scores.length; i++) {
                 if (scores[i] !== maxScore) {
                     continue;
                 }
 
-                this.winners.push(this.players[i].Name);
+                winners.push(this.players[i].Name);
             }
 
-            if (!this.winners.length) {
+            if (!winners.length) {
                 continue;
             }
-            return this.winners;
+            return winners;
         }
         return [];
     }
@@ -79,5 +76,14 @@ export class Game {
 
     leftInDeck(){
         return this.deck.length;
+    }
+
+    getGameState() {
+        return {
+            deckCount: this.leftInDeck(),
+            players: this.players,
+            currentPlayer: this.getActivePlayer(),
+            winners: this.getWinners()
+        }
     }
 }
