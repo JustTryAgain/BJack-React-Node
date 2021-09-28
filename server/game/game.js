@@ -1,9 +1,10 @@
 import {Deck} from "./deck.js";
+import {Players} from "./players.js";
 
 export class Game {
     constructor(players) {
         this.deck = new Deck();
-        this.players = players;
+        this.players = new Players(players).getPlayers();
         this.currentPlayer = 0;
         this.dealHand();
     }

@@ -1,17 +1,24 @@
 import React from "react";
-import Logo from './headerSection/headerSection';
-import InfoSection from './infoSection/infoSection';
-import PlayersList from "./playerSection";
+import Game from "./startGame/game.jsx";
+import StartGame from "./startGame/start.jsx";
+import {connect} from "react-redux";
+import {isGameStart} from "../redux/selectors.js";
+import {createStructuredSelector} from "reselect";
+import {startGameActionRequest} from "../redux/game/actions.js";
 
-
-const App = ()=>{
-    return (
-      <div className='black-Jack'>
-        <Logo/>
-        <InfoSection/>
-        <PlayersList/>
-      </div>
-    );
+const App = () => {
+  return (
+    <>
+      {isGameStart ? <Game/> : <StartGame/>}
+    </>
+  );
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  isGameStart
+});
+const mapDispatchToProps = {
+  startGameActionRequest
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

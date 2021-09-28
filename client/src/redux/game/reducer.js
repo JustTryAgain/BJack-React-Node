@@ -1,29 +1,42 @@
 import {handleActions} from "redux-actions";
-import {hitAction} from "./actions.js";
-import {newGame} from "../../../../server/game";
-
-
+import {startGameActionRequest} from "./actions.js";
 
 const initialState = {
+  isGameStart: false,
+  isLoading: false,
+  loaded: false,
   players: [],
   winners: [],
   currentPlayer: 0,
   deckSize: 0
 };
 
-
 const game = handleActions(
   {
-    [hitAction]:(state, {payload}) => {
-      console.log({...payload});
-
+    [startGameActionRequest]: (state) => {
+      console.log('starting game...');
        return {
          ...state,
-        ...payload
+         isLoading: true
        }
     },
+    [startGameActionRequest.success]: (state, {...request}) => {
+      return {
+        ...state,
+        ...request.payload.data,
+        isGameStart: true,
+        loaded: true
+      }
+    },
+    [startGameActionRequest.fail]: (state, {...request}) => {
+      console.log(request);
+      return {
+        ...state,
+        loaded: false
+      }
+    }
   },
-  {...initialState,...newGame.getGameState()}
+  initialState
 );
 
 export default game;

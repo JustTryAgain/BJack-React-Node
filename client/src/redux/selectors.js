@@ -23,3 +23,8 @@ export const getPlayersId = createSelector(
     return player.Id;
   })
 );
+
+export const isGameStart = createSelector(
+  state,
+  state => state.isGameStart
+);

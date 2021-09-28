@@ -1,14 +1,12 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {hitAction} from "../../redux/game/actions.js";
-import {players} from "../../redux/selectors.js";
+import {hitActionRequest} from "../../redux/game/actions.js";
 
-
-const ActionButtons = ({hitAction}) => {
+const ActionButtons = ({hitActionRequest}) => {
     return (
         <div className = 'action-buttons'>
             <div className = 'hit'>
-                <button className='btn-hit' onClick={()=>{hitAction();}}>HIT!</button>
+                <button className='btn-hit' onClick={()=>{hitActionRequest();}}>HIT!</button>
             </div>
             <div className = 'stand'>
                 <button className='btn-stand'>STAND</button>
@@ -17,14 +15,8 @@ const ActionButtons = ({hitAction}) => {
     );
 }
 
-const mapStateToProps = (state) =>{
-  return {
-    playerArr: players(state)
-  }
-}
-
 const mapDispatchToProps = {
-  hitAction
+  hitActionRequest: hitActionRequest
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons);
+export default connect((state)=>state, mapDispatchToProps)(ActionButtons);

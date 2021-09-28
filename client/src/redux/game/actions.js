@@ -1,15 +1,19 @@
-import {createAction} from "redux-actions";
+import {createRequestAction} from "../../helpers/helpers.js";
 
 
-export const hitAction = createAction('HIT');
-export const stand = createAction('STAND');
+export const startGameActionRequest = createRequestAction('START_REQUEST',  (playerNamesArr) => {
+  return {
+    request: {
+      method: "post",
+      url: '/start',
+      data: {
+        playerNames: playerNamesArr,
+        token: localStorage.getItem('token') || null,
+      }
+    }
+  }
+});
 
+export const hitActionRequest = createRequestAction('HIT_REQUEST',()=>{
 
-/*
-{
-  stand: [Function: actionCreator] { toString: [Function (anonymous)] },
-  hit: [Function: actionCreator] { toString: [Function (anonymous)] }
-}
-
-[Function: actionCreator] { toString: [Function (anonymous)] }
-*/
+});

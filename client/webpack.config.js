@@ -6,7 +6,8 @@ module.exports = {
     entry: './src/index.js',
     devtool: 'eval-source-map',
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, '..', 'server', 'static'),
+        publicPath: '/',
         filename: 'bundle.js',
     },
     resolve: {
@@ -45,6 +46,17 @@ module.exports = {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader"],
             },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: './images/[name].[ext]'
+                        }
+                    },
+                ],
+            }
         ]
     },
     devServer: {
