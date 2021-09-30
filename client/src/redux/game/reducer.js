@@ -1,42 +1,94 @@
 import {handleActions} from "redux-actions";
-import {startGameActionRequest} from "./actions.js";
+import {getStateAction, hitAction, standAction, startGameAction} from "./actions.js";
 
 const initialState = {
-  isGameStart: false,
-  isLoading: false,
-  loaded: false,
-  players: [],
-  winners: [],
-  currentPlayer: 0,
-  deckSize: 0
+    players: [],
+    winners: [],
+    currentPlayer: 0,
+    deckSize: 0,
+    token: localStorage.getItem('token') || null,
+    isGameStart: false
 };
 
-const game = handleActions(
-  {
-    [startGameActionRequest]: (state) => {
-      console.log('starting game...');
-       return {
-         ...state,
-         isLoading: true
-       }
+const game = handleActions({
+        [startGameAction]: (state) => {
+            console.log('starting game...');
+            return {
+                ...state
+            }
+        },
+        [startGameAction.success]: (state, {payload: {data}}) => {
+            if (!state.token) localStorage.setItem("token", data.token);
+            return {
+                ...state,
+                ...data,
+                isGameStart: true
+            }
+        },
+        [startGameAction.fail]: (state, {error: {response: {data, status}}}) => {
+            console.log('error: ' + data + ' status code: ' + status + '!');
+            return {
+                ...state,
+                isGameStart: false
+            }
+        },
+        [getStateAction]: (state) => {
+            console.log('starting getState...');
+            return {
+                ...state
+            }
+        },
+        [getStateAction.success]: (state, {payload: {data}}) => {
+            return {
+                ...state,
+                isGameStart: true,
+                ...data
+            }
+        },
+        [getStateAction.fail]: (state, {error: {response: {data, status}}}) => {
+            console.log('error: ' + data + ' status code: ' + status + '!');
+            return {
+                ...state
+            }
+        },
+        [hitAction]: (state) => {
+            console.log({...state.players[state.currentPlayer]}, ' hit');
+            return {
+                ...state
+            }
+        },
+        [hitAction.success]: (state, {payload: {data}}) => {
+            return {
+                ...state,
+                ...data
+            }
+        },
+        [hitAction.fail]: (state,  {error: {response: {data, status}}}) => {
+            console.log('error: ' + data + ' status code: ' + status + '!');
+            return {
+                ...state
+            }
+        },
+        [standAction]: (state) => {
+            console.log({...state.players[state.currentPlayer]}, ' stand');
+            return {
+                ...state
+            }
+        },
+        [standAction.success]: (state, {payload: {data}}) => {
+            return {
+                ...state,
+                ...data
+            }
+        },
+        [standAction.fail]: (state,  {error: {response: {data, status}}}) => {
+            console.log('error: ' + data + ' status code: ' + status + '!');
+            return {
+                ...state
+            }
+        }
     },
-    [startGameActionRequest.success]: (state, {...request}) => {
-      return {
-        ...state,
-        ...request.payload.data,
-        isGameStart: true,
-        loaded: true
-      }
-    },
-    [startGameActionRequest.fail]: (state, {...request}) => {
-      console.log(request);
-      return {
-        ...state,
-        loaded: false
-      }
-    }
-  },
-  initialState
+    initialState
 );
 
 export default game;

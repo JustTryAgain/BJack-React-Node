@@ -1,25 +1,32 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Game from "./startGame/game.jsx";
 import StartGame from "./startGame/start.jsx";
-import {connect} from "react-redux";
-import {isGameStart} from "../redux/selectors.js";
+import {connect, useDispatch} from "react-redux";
 import {createStructuredSelector} from "reselect";
-import {startGameActionRequest} from "../redux/game/actions.js";
+import {getStateAction, startGameAction} from "../redux/game/actions.js";
+import {getToken, isGameStart} from "../redux/selectors";
 
-const App = () => {
-  return (
-    <>
-      {isGameStart ?  <StartGame/>: <Game/>}
-    </>
-  );
+
+const App = ({isGameStart, getToken}) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getStateAction(getToken));
+    }, []);
+
+    return (
+        <>
+            {isGameStart ? <Game/> : <StartGame/>}
+        </>
+    );
 }
 
 const mapStateToProps = createStructuredSelector({
-  isGameStart
+    isGameStart,
+    getToken
 });
 
 const mapDispatchToProps = {
-  startGameActionRequest
+    startGameAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

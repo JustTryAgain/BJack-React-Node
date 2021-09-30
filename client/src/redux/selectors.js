@@ -24,7 +24,17 @@ export const getPlayersId = createSelector(
   })
 );
 
-export const isGameStart = createSelector(
+export const getDeckSize = createSelector(
   state,
-  state => state.isGameStart
+  state => state.deckSize
+);
+
+export const isGameStart = createSelector(
+    state,
+    state => state.isGameStart
+);
+
+export const getToken = createSelector(
+    state,
+    state => state.token
 );

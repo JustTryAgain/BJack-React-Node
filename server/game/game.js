@@ -17,14 +17,13 @@ export class Game {
         }
     }
 
-    gHit() {
+    hit() {
         const player = this.players[this.currentPlayer];
         if (player.getScore() >= 21) {
             return this.nextPlayer();
         }
         player.takeCard(this.cardFromDeck());
-
-        return true; //TODO:SKIP
+        return true;
     }
 
     stand() {
@@ -80,11 +79,12 @@ export class Game {
     }
 
     getGameState() {
+        this.players.forEach(player => player.Score = player.getScore());
         return {
-            deckCount: this.leftInDeck(),
             players: this.players,
             currentPlayer: this.getActivePlayer(),
-            winners: this.getWinners()
+            winners: [],
+            deckSize: this.leftInDeck()
         }
     }
 }

@@ -1,10 +1,12 @@
 import React, {useCallback, useState} from "react";
 import './gameinit.scss'
 import InitList from "./initList.jsx";
-import {startGameActionRequest} from "../../redux/game/actions";
+import {startGameAction} from "../../redux/game/actions";
 import {connect} from "react-redux";
+import {createStructuredSelector} from "reselect";
+import {getToken} from "../../redux/selectors";
 
-const StartGame = () => {
+const StartGame = ({startGameAction,getToken}) => {
     const [newPlayers, setNewPlayer] = useState([]);
     const [playerName, setPlayerName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -14,7 +16,7 @@ const StartGame = () => {
     }, [errorMessage]);
 
     const getInput = useCallback((event) => {
-        setPlayerName(event.target.value)
+        setPlayerName(event.target.value);
     }, []);
 
     const add = useCallback(() => {
@@ -37,20 +39,20 @@ const StartGame = () => {
     ]);
 
     const submitData = useCallback(() => {
-        startGameActionRequest(newPlayers)
-    }, [startGameActionRequest, newPlayers]);
+        startGameAction(newPlayers, getToken)
+    }, [startGameAction, newPlayers]);
 
     const handlerSubmit = (event) => {
+        event.preventDefault();
         if (newPlayers.length < 2) {
             handleErrorMessage("There are minimum two players for start game!");
         } else if (errorMessage === '') {
             submitData();
         } else {
             handleErrorMessage("");
-            event.preventDefault();
             return false;
         }
-    }
+    };
 
     return (
         <div className='init-game'>
@@ -60,11 +62,14 @@ const StartGame = () => {
                         type='text' value={playerName}
                         className='form-input' onInput={getInput}
                         placeholder="Input name of new player"
+                        autoComplete="off"
                         name="player-name" maxLength='12'
                     />
                     <div className="buttons-wrapper">
                         <button className="start-game"
-                                onClick={handlerSubmit}>
+                                onClick={(e) => {
+                                    handlerSubmit(e)
+                                }}>
                             <span>Start Game</span>
                         </button>
                         <button className="add-player" onClick={add}>
@@ -84,7 +89,9 @@ const StartGame = () => {
 }
 
 const mapDispatchToProps = {
-    startGameActionRequest
+    startGameAction
 }
-
-export default connect(null, mapDispatchToProps)(StartGame);
+const mapStateToProps = createStructuredSelector({
+   getToken
+});
+export default connect(mapStateToProps, mapDispatchToProps)(StartGame);

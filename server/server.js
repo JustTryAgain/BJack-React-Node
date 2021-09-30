@@ -1,7 +1,3 @@
-//1.Срабатывает екшн
-//2.Запрос на сервер POST GET PUT DELETE
-//3.В случае успешного запроса возврат 200 кода и сохранение в стор
-//4.Обновление компонентов.
 import Koa from 'koa';
 import dotenv from 'dotenv';
 import serve from "koa-static";
