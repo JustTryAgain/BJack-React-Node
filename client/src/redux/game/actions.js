@@ -53,12 +53,25 @@ export const standAction = createRequestAction('STAND_REQUEST',
         }
     });
 
-export const getResultAction = createRequestAction('GET_RESULT_REQUEST',
+export const newGameAction = createRequestAction('NEW_GAME_REQUEST',
     (token) => {
         return {
             request: {
                 method: 'get',
-                url: '/result',
+                url: '/new',
+                headers: {
+                    token: token
+                }
+            }
+        }
+    });
+
+export const getHistoryAction = createRequestAction('GET_HISTORY_REQUEST',
+    (token) => {
+        return {
+            request: {
+                method: 'get',
+                url: '/history',
                 headers: {
                     token: token
                 }

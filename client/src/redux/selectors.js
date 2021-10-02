@@ -17,13 +17,6 @@ export const currentPlayer = createSelector(
   state => state.currentPlayer
 );
 
-export const getPlayersId = createSelector(
-  players,
-  (state) => state.map((player) => {
-    return player.Id;
-  })
-);
-
 export const getDeckSize = createSelector(
   state,
   state => state.deckSize
@@ -37,4 +30,9 @@ export const isGameStart = createSelector(
 export const getToken = createSelector(
     state,
     state => state.token
+);
+
+export const history = createSelector(
+    state,
+    state => state.history
 );

@@ -9,6 +9,8 @@ export class Game {
         this.dealHand();
     }
 
+    static toggle = false;
+
     dealHand() {
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < this.players.length; j++) {
@@ -36,6 +38,7 @@ export class Game {
 
     nextPlayer() {
         if (this.currentPlayer === this.players.length - 1) {
+            Game.toggle = true;
             return false;
         }
         this.currentPlayer++;
@@ -50,7 +53,7 @@ export class Game {
         const scores = this.players.map(player => player.getScore());
 
         for (let maxScore = 21; maxScore >= 0; maxScore--) {
-             const winners = [];
+            const winners = [];
             for (let i = 0; i < scores.length; i++) {
                 if (scores[i] !== maxScore) {
                     continue;
@@ -68,13 +71,16 @@ export class Game {
     }
 
     restart() {
-        this.deck = new Deck();
-        this.players.map(player => player.Hand = []);
-        this.currentPlayer = 0;
-        this.dealHand();
+        Game.toggle = false;
+        return {
+            players: [],
+            winners: null,
+            deckSize: 0,
+            currentPlayer: 0
+        }
     }
 
-    leftInDeck(){
+    leftInDeck() {
         return this.deck.length;
     }
 
@@ -83,7 +89,7 @@ export class Game {
         return {
             players: this.players,
             currentPlayer: this.getActivePlayer(),
-            winners: [],
+            winners: Game.toggle ? this.getWinners() : null,
             deckSize: this.leftInDeck()
         }
     }

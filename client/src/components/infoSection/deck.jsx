@@ -7,12 +7,12 @@ import {createStructuredSelector} from "reselect";
 const Deck = ({getDeckSize}) => {
     return (
         <div className='deck'>
-            <div className='deck-txt'>
-                DECK
-            </div>
             <div className='card-back'>
                 <img src={cardBack} alt='card-back'/>
                 <div className='counter'> {getDeckSize}</div>
+            </div>
+            <div className='deck-txt'>
+                DECK
             </div>
         </div>
     );

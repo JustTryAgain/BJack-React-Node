@@ -1,15 +1,21 @@
 import React, {useCallback, useState} from "react";
 import './gameinit.scss'
 import InitList from "./initList.jsx";
-import {startGameAction} from "../../redux/game/actions";
+import {getHistoryAction, startGameAction} from "../../redux/game/actions";
 import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
-import {getToken} from "../../redux/selectors";
+import {getToken, history} from "../../redux/selectors";
+import ShowHistory from "./showHistory";
 
-const StartGame = ({startGameAction,getToken}) => {
+const StartGame = ({startGameAction, getToken, getHistoryAction, history}) => {
     const [newPlayers, setNewPlayer] = useState([]);
     const [playerName, setPlayerName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [show, setShow] = useState(false);
+
+    const handleShow = useCallback(()=>{
+        setShow(!show);
+    },[show]);
 
     const handleErrorMessage = useCallback((errMessage) => {
         setErrorMessage(errMessage)
@@ -24,7 +30,7 @@ const StartGame = ({startGameAction,getToken}) => {
             handleErrorMessage("Name must be more then 3 symbols!");
             return false;
         }
-        if (playerName.length > 3 && playerName.length < 13) {
+        if (playerName.length > 3 && playerName.length < 12) {
             handleErrorMessage("");
         }
         if (playerName !== '') {
@@ -63,7 +69,7 @@ const StartGame = ({startGameAction,getToken}) => {
                         className='form-input' onInput={getInput}
                         placeholder="Input name of new player"
                         autoComplete="off"
-                        name="player-name" maxLength='12'
+                        name="player-name" maxLength='11'
                     />
                     <div className="buttons-wrapper">
                         <button className="start-game"
@@ -85,13 +91,22 @@ const StartGame = ({startGameAction,getToken}) => {
                               setInitialPlayers={setNewPlayer}/>
                 </div>
             </div>
+            {show ? <ShowHistory show={handleShow} history={history}/> : <button className='show-history'
+            onClick={()=> {
+                getHistoryAction(getToken)
+                handleShow()
+            }}>
+                Show game history
+            </button>}
         </div>);
 }
 
 const mapDispatchToProps = {
-    startGameAction
+    startGameAction,
+    getHistoryAction
 }
 const mapStateToProps = createStructuredSelector({
-   getToken
+    getToken,
+    history
 });
 export default connect(mapStateToProps, mapDispatchToProps)(StartGame);

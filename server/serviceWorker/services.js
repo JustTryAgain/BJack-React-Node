@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import {GameResult} from "../db/index.js";
 
 export const secKey = process.env.JWT_KEY || "secret";
 export const allGames = {};
@@ -13,16 +14,32 @@ export const authMiddleware = async (ctx, next) => {
     const token = requestData.token;
 
     if (!token) {
-        ctx.throw(401, 'There is empty');
+        ctx.throw(401, 'There is empty token');
     }
 
     try {
         const {id} = tokenVerify(token);
-        console.log(id);
+
         if (Object.keys(allGames).includes(id)) {
             await next();
         }
     } catch (error) {
-        ctx.throw(401,'i catch error: ' + error);
+        ctx.throw(401, 'i catch error: ' + error);
     }
+}
+
+export const saveResult = (gameID) => {
+    const gameState = allGames[gameID].getGameState();
+    if (gameState.winners){
+        GameResult.create({
+            winners: gameState.winners,
+            players: gameState.players,
+            userID: gameID
+        },
+            (error, document)=>{
+                if(error) return console.log(error);
+                console.log("Object is saved: ", document);
+            });
+    }
+     console.log('not validate expression!');
 }

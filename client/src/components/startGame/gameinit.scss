@@ -6,6 +6,127 @@
   background: -webkit-linear-gradient(to right, #45a247cc, #283c86bb);
   background: linear-gradient(to right, #45a247cc, #283c86bb);
 
+  .show-history {
+    margin: 10px;
+    position: absolute;
+    font-family: inherit;
+    font-size: 1.3rem;
+    width: 150px;
+    height: 70px;
+    border: 5px solid #283c86;
+    background-color: #45a247cc;
+    border-radius: 20%;
+    color: #F2F7E1;
+
+    &:hover {
+      transition: 0.4s;
+      background-color: #283c86;
+      border: 5px solid #45a247cc;
+      cursor: pointer;
+    }
+  }
+
+  .history {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    background-color: #3e4444;
+    top: calc(50% - 90% / 2);
+    left: calc(50% - 90% / 2);
+    border: 4px solid #190A11;
+    border-radius: 5%;
+    padding: 10px;
+    color: #ffa500;
+    text-align: center;
+
+    &-close {
+      position: relative;
+      left: 47%;
+      background-color: red;
+      border: 2px solid black;
+      border-radius: 10px;
+    }
+
+    &-content {
+      overflow-y: auto;
+      width: 100%;
+      height: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+
+
+      .history-game {
+        display: flex;
+        flex-direction: column;
+        background-color: #405d27;
+        font-size: 1.2rem;
+        margin: 10px;
+        border: 2px double black;
+        border-radius: 5px;
+        padding: 5px;
+        max-width: 45%;
+
+        &-id{
+          text-align: start;
+          word-spacing: 100vw;
+        }
+        .history-players {
+          padding: 5px;
+          display: flex;
+          flex-wrap: wrap;
+          border: 2px solid black;
+          background-color: #c1946a;
+          border-radius: 5px;
+          height: 100%;
+          align-content: flex-start;
+
+          .history-player {
+            background-color: #dada0666;
+            max-height: 190px;
+            width: 170px;
+            padding: 5px;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 2px solid black;
+            border-radius: 5px;
+            color: black;
+
+            .history-cards {
+              background-color: #68714A;
+              display: flex;
+              justify-content: center;
+              flex-wrap: wrap;
+              height: 110px;
+              border-radius: 5px;
+
+              .history-card {
+                margin: 3px;
+                background-color: #86d472;
+                height: 80%;
+                border: 1.5px solid #190A11;
+                border-radius: 2px;
+                max-width: 37px;
+                max-height: 37px;
+
+                img {
+                  width: 15px;
+                  height: 15px;
+                }
+              }
+            }
+          }
+
+          .winner {
+            border: 7px double #770e86;
+            background: #dada06;
+          }
+        }
+      }
+    }
+  }
 
   .wrapper-start-game-ctn {
     position: absolute;
@@ -24,6 +145,7 @@
         font-family: inherit;
         font-weight: 500;
         min-width: 250px;
+        max-width: 300px;
         align-self: flex-end;
         height: 50%;
         width: 100%;
@@ -60,14 +182,14 @@
           border-radius: 10px;
           border: 1px solid transparent;
           color: #eee;
-          font-size: 1.1em;
+          font-size: 1.2em;
           padding: 1px;
-          width: 100px;
+          width: 120px;
           font-family: inherit;
 
           :hover {
             color: black;
-
+            cursor: pointer;
           }
 
           span {
@@ -125,7 +247,6 @@
             margin-left: 5px;
             position: relative;
             display: inline-block;
-            overflow: hidden;
             background: linear-gradient(to right, #ccc, #999) border-box;
             border: 1px solid transparent;
             color: white;
